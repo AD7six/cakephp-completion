@@ -82,25 +82,25 @@ class BashCompletionShell extends CommandListShell {
 
 		$return = $Shell->tasks;
 
-        $ShellReflection = new ReflectionClass('AppShell');
-        $shellMethods = $ShellReflection->getMethods(ReflectionMethod::IS_PUBLIC);
-        $shellMethodNames = array('main');
-        foreach($shellMethods as $method) {
-            $shellMethodNames[] = $method->getName();
-        }
+		$ShellReflection = new ReflectionClass('AppShell');
+		$shellMethods = $ShellReflection->getMethods(ReflectionMethod::IS_PUBLIC);
+		$shellMethodNames = array('main');
+		foreach($shellMethods as $method) {
+			$shellMethodNames[] = $method->getName();
+		}
 
-        $Reflection = new ReflectionClass($Shell);
-        $methods = $Reflection->getMethods(ReflectionMethod::IS_PUBLIC);
-        $methodNames = array();
-        foreach($methods as $method) {
-            $methodNames[] = $method->getName();
-        }
+		$Reflection = new ReflectionClass($Shell);
+		$methods = $Reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+		$methodNames = array();
+		foreach($methods as $method) {
+			$methodNames[] = $method->getName();
+		}
 
-        $return += array_diff($methodNames, $shellMethodNames);
+		$return += array_diff($methodNames, $shellMethodNames);
 
-        sort($return);
+		sort($return);
 
-        return $return;
+		return $return;
 	}
 
 	/**
