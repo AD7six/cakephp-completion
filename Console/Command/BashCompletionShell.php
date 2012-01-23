@@ -4,14 +4,38 @@ APP::uses('CommandListShell', 'Console/Command');
 
 class BashCompletionShell extends CommandListShell {
 
+	/**
+	 * Echo no header
+	 *
+	 */
 	public function startup() {
 	}
 
+	/**
+	 * If there are no args - list all commands
+	 * If there is one arg - it's the name of the command to run. list subcommands
+	 *
+	 */
 	public function main() {
-		$this->shells();
+		$options = array();
+
+		if (!$this->args) {
+			$options = $this->commands();
+		}
+
+		if (count($this->args) === 1) {
+			$options = $this->subCommands($this->args[0]);
+		}
+
+		$this->output($options);
 	}
 
-	public function shells() {
+	/**
+	 * Return a list of all commands
+	 *
+	 * @return array
+	 */
+	public function commands() {
 		$shellList = $this->_getShellList();
 
 		$options = array();
@@ -27,10 +51,46 @@ class BashCompletionShell extends CommandListShell {
 			$options[] = $prefix . $shell;
 		}
 
-		$this->output($options);
+		return $options;
 	}
 
+	/**
+	 * Return a list of subcommands for a given command
+	 *
+	 * @param string $commandName
+	 * @return array
+	 */
+	public function subcommands($commandName) {
+		list($plugin, $name) = pluginSplit($commandName, true);
+
+		$underscored = Inflector::underscore($name);
+		$shellList = $this->_getShellList();
+		if (empty($shellList[$underscored])) {
+			return false;
+		}
+		if ($plugin === 'CORE.' || $plugin === 'APP.') {
+			$plugin = '';
+		}
+
+		$name = Inflector::classify($name);
+		$plugin = Inflector::classify($plugin);
+		$class = $name . 'Shell';
+		APP::uses($class, $plugin . 'Console/Command');
+
+		$Shell = new $class();
+		$Shell->plugin = trim($plugin, '.');
+
+		return $Shell->tasks;
+	}
+
+	/**
+	 * Emit results as a string, space delimited
+	 *
+	 * @param array $options
+	 */
 	public function output($options) {
-		$this->out(implode($options, ' '));
+		if ($options) {
+			$this->out(implode($options, ' '));
+		}
 	}
 }

@@ -13,5 +13,11 @@ _cake()
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         return 0
     fi
+    if [[ ${COMP_CWORD} = 2 ]] ; then
+    	opts=$(${cake} BashCompletion.BashCompletion $prev)
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        return 0
+    fi
+
 }
 complete -F _cake cake cakephp
