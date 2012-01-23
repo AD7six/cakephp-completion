@@ -84,7 +84,7 @@ class BashCompletionShell extends CommandListShell {
 
 		$ShellReflection = new ReflectionClass('AppShell');
 		$shellMethods = $ShellReflection->getMethods(ReflectionMethod::IS_PUBLIC);
-		$shellMethodNames = array('main');
+		$shellMethodNames = array('main', 'help');
 		foreach($shellMethods as $method) {
 			$shellMethodNames[] = $method->getName();
 		}
