@@ -9,7 +9,7 @@ Installation
 You need bash-completion enabled on your machine, assuming that's the case;
 
     cp Vendor/cake /etc/bash_completion.d/
-	. /etc/bash_completion.d/cake
+	. /etc/bash_completion.d/cake.bash
 
 
 You'll need to enable the plugin in each installation you wish to use it with. Enable the plugin
