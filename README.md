@@ -15,7 +15,7 @@ You need bash-completion enabled on your machine, assuming that's the case;
 You'll need to enable the plugin in each installation you wish to use it with. Enable the plugin
 as you would any other, by editing your bootstrap.php file:
 
-    CakePlugin::load('BashCompletion');
+    CakePlugin::load('Completion');
 
 Usage
 -----
