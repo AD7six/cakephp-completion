@@ -8,24 +8,21 @@ Installation
 
 You need bash-completion enabled on your machine, assuming that's the case;
 
-    cp Vendor/cake /etc/bash_completion.d/
+	cp Vendor/cake /etc/bash_completion.d/
 	. /etc/bash_completion.d/cake.bash
-
 
 You'll need to enable the plugin in each installation you wish to use it with. Enable the plugin
 as you would any other, by editing your bootstrap.php file:
 
-    CakePlugin::load('Completion');
+	CakePlugin::load('Completion');
 
 Usage
 -----
 
 	$ Console/cake <tab>
-	acl                             console                         test
-	api                             DebugKit.benchmark              testsuite
-	bake                            DebugKit.whitespace             upgrade
-	Completion.completion           i18n
-	command_list                    schema
+	acl                    commandList            i18n                   testsuite
+	api                    completion.completion  schema                 upgrade
+	bake                   console                test
 	$ Console/cake
 
 History
