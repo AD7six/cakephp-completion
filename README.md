@@ -1,7 +1,7 @@
-CakePHP Bash Completion
-=======================
+CakePHP Completion
+==================
 
-A CakePHP plugin to enable bash completion for the CakePHP cli.
+A CakePHP plugin to enable (bash) completion for the CakePHP cli.
 
 Installation
 ------------
@@ -24,7 +24,7 @@ Usage
 	acl                             console                         test
 	api                             DebugKit.benchmark              testsuite
 	bake                            DebugKit.whitespace             upgrade
-	BashCompletion.bash_completion  i18n
+	Completion.completion           i18n
 	command_list                    schema
 	$ Console/cake
 
