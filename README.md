@@ -35,7 +35,7 @@ Subcommands:
 
 Options:
 
-	$ Console/cake bake -
+	$ Console/cake bake -<tab>
 	-c            -h            -q            -v
 	--connection  --help        --quiet       --verbose
 	$ Console/cake bake -
