@@ -10,11 +10,11 @@ _cake()
 
 	if [[ "$cur" == -* ]] ; then
 		if [[ ${COMP_CWORD} = 1 ]] ; then
-			opts=$(${cake} BashCompletion.BashCompletion options)
+			opts=$(${cake} Completion.Completion options)
 		elif [[ ${COMP_CWORD} = 2 ]] ; then
-			opts=$(${cake} BashCompletion.BashCompletion options "${COMP_WORDS[1]}")
+			opts=$(${cake} Completion.Completion options "${COMP_WORDS[1]}")
 		else
-			opts=$(${cake} BashCompletion.BashCompletion options "${COMP_WORDS[1]}" "${COMP_WORDS[2]}")
+			opts=$(${cake} Completion.Completion options "${COMP_WORDS[1]}" "${COMP_WORDS[2]}")
 		fi
 
 		COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
@@ -22,19 +22,19 @@ _cake()
 	fi
 
 	if [[ ${COMP_CWORD} = 1 ]] ; then
-		opts=$(${cake} BashCompletion.BashCompletion commands)
+		opts=$(${cake} Completion.Completion commands)
 		COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 		return 0
 	fi
 
 	if [[ ${COMP_CWORD} = 2 ]] ; then
-		opts=$(${cake} BashCompletion.BashCompletion subcommands $prev)
+		opts=$(${cake} Completion.Completion subcommands $prev)
 		COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 		return 0
 	fi
 
 
-    opts=$(${cake} BashCompletion.BashCompletion fuzzy "${COMP_WORDS[@]:1}")
+    opts=$(${cake} Completion.Completion fuzzy "${COMP_WORDS[@]:1}")
     COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 	return 0;
 
