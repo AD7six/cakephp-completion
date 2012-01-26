@@ -19,11 +19,26 @@ as you would any other, by editing your bootstrap.php file:
 Usage
 -----
 
+Commands:
+
 	$ Console/cake <tab>
 	acl                    commandList            i18n                   testsuite
 	api                    completion.completion  schema                 upgrade
 	bake                   console                test
 	$ Console/cake
+
+Subcommands:
+
+	$ Console/cake bake <tab>
+	controller  dbConfig    fixture     model       plugin      project     test        view
+	$ Console/cake bake
+
+Options:
+
+	$ Console/cake bake -
+	-c            -h            -q            -v
+	--connection  --help        --quiet       --verbose
+	$ Console/cake bake -
 
 History
 -------
