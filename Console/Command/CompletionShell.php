@@ -2,7 +2,7 @@
 
 APP::uses('CommandListShell', 'Console/Command');
 
-class BashCompletionShell extends CommandListShell {
+class CompletionShell extends CommandListShell {
 
 	/**
 	 * Echo no header
