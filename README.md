@@ -59,7 +59,7 @@ Commands:
 Subcommands:
 
 	$ Console/cake bake <tab>
-	controller  db_config    fixture     model       plugin      project     test        view
+	controller  db_config   fixture     model       plugin      project     test        view
 	$ Console/cake bake
 
 Options:
