@@ -193,8 +193,8 @@ class CompletionShell extends CommandListShell {
 			$plugin = '';
 		}
 
-		$name = Inflector::classify($name);
-		$plugin = Inflector::classify($plugin);
+		$name = Inflector::camelize($name);
+		$plugin = Inflector::camelize($plugin);
 		$class = $name . 'Shell';
 		APP::uses($class, $plugin . 'Console/Command');
 
