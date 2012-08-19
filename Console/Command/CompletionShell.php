@@ -129,7 +129,7 @@ class CompletionShell extends CommandListShell {
 		$options = array();
 		foreach($shellList as $type => $commands) {
 			$prefix = '';
-			if (!in_array($type, array('APP', 'CORE'))) {
+			if (!in_array($type, array('app', 'core', 'APP', 'CORE'))) {
 				$prefix = $type . '.';
 			}
 
