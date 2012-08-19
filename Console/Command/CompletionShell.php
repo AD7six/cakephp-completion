@@ -1,34 +1,36 @@
 <?php
-
 APP::uses('CommandListShell', 'Console/Command');
 
+/**
+ * CompletionShell
+ */
 class CompletionShell extends CommandListShell {
 
-	/**
-	 * Echo no header
-	 *
-	 */
+/**
+ * Echo no header
+ *
+ */
 	public function startup() {
 	}
 
-	/**
-	 * Not called by the autocomplet shell - this is for curious users
-	 */
+/**
+ * Not called by the autocomplet shell - this is for curious users
+ */
 	public function main() {
 		$this->out($this->OptionParser->help());
 	}
 
-	/**
-	 * list commands
-	 */
+/**
+ * list commands
+ */
 	public function commands() {
 		$options = $this->_commands();
-		return $this->output($options);
+		return $this->_output($options);
 	}
 
-	/**
-	 * list options for the named command
-	 */
+/**
+ * list options for the named command
+ */
 	public function options() {
 		if (!$this->args) {
 			$parser = new ConsoleOptionParser();
@@ -43,38 +45,38 @@ class CompletionShell extends CommandListShell {
 
 		$options = array();
 		$array = $parser->options();
-		foreach($array as $name => $obj) {
+		foreach ($array as $name => $obj) {
 			$options[] = "--$name";
 			$short = $obj->short();
 			if ($short) {
 				$options[] = "-$short";
 			}
 		}
-		return $this->output($options);
+		return $this->_output($options);
 	}
 
-	/**
-	 * list subcommands for the named command
-	 */
+/**
+ * list subcommands for the named command
+ */
 	public function subCommands() {
 		if (!$this->args) {
-			return $this->output();
+			return $this->_output();
 		}
 
 		$options = $this->_subCommands($this->args[0]);
-		return $this->output($options);
+		return $this->_output($options);
 	}
 
-	/**
-	 * Guess autocomplete from the whole argument string
-	 */
+/**
+ * Guess autocomplete from the whole argument string
+ */
 	public function fuzzy() {
-		return $this->output();
+		return $this->_output();
 	}
 
-	/**
-	 * getOptionParser for _this_ shell
-	 */
+/**
+ * getOptionParser for _this_ shell
+ */
 	public function getOptionParser() {
 		$translationDomain = 'bash_completion';
 
@@ -118,17 +120,17 @@ class CompletionShell extends CommandListShell {
 		return $parser;
 	}
 
-	/**
-	 * Return a list of all commands
-	 *
-	 * @return array
-	 */
+/**
+ * Return a list of all commands
+ *
+ * @return array
+ */
 	protected function _commands() {
 		$shellList = $this->_getShellList();
 		unset($shellList['Completion']);
 
 		$options = array();
-		foreach($shellList as $type => $commands) {
+		foreach ($shellList as $type => $commands) {
 			$prefix = '';
 			if (!in_array($type, array('app', 'core', 'APP', 'CORE'))) {
 				$prefix = $type . '.';
@@ -142,12 +144,12 @@ class CompletionShell extends CommandListShell {
 		return $options;
 	}
 
-	/**
-	 * Return a list of subcommands for a given command
-	 *
-	 * @param string $commandName
-	 * @return array
-	 */
+/**
+ * Return a list of subcommands for a given command
+ *
+ * @param string $commandName
+ * @return array
+ */
 	protected function _subCommands($commandName) {
 		$Shell = $this->_getShell($commandName);
 
@@ -156,7 +158,7 @@ class CompletionShell extends CommandListShell {
 		}
 
 		$return = array();
-		$taskMap = TaskCollection::normalizeObjectArray((array) $Shell->tasks);
+		$taskMap = TaskCollection::normalizeObjectArray((array)$Shell->tasks);
 		foreach ($taskMap as $task => $properties) {
 			$return[] = $task;
 		}
@@ -166,24 +168,28 @@ class CompletionShell extends CommandListShell {
 		$ShellReflection = new ReflectionClass('AppShell');
 		$shellMethods = $ShellReflection->getMethods(ReflectionMethod::IS_PUBLIC);
 		$shellMethodNames = array('main', 'help');
-		foreach($shellMethods as $method) {
+		foreach ($shellMethods as $method) {
 			$shellMethodNames[] = $method->getName();
 		}
 
 		$Reflection = new ReflectionClass($Shell);
 		$methods = $Reflection->getMethods(ReflectionMethod::IS_PUBLIC);
 		$methodNames = array();
-		foreach($methods as $method) {
+		foreach ($methods as $method) {
 			$methodNames[] = $method->getName();
 		}
 
 		$return += array_diff($methodNames, $shellMethodNames);
-
 		sort($return);
 
 		return $return;
 	}
 
+/**
+ * _getShell
+ *
+ * @param mixed $commandName
+ */
 	protected function _getShell($commandName) {
 		list($plugin, $name) = pluginSplit($commandName, true);
 
@@ -207,12 +213,12 @@ class CompletionShell extends CommandListShell {
 		return $Shell;
 	}
 
-	/**
-	 * Emit results as a string, space delimited
-	 *
-	 * @param array $options
-	 */
-	protected function output($options = array()) {
+/**
+ * Emit results as a string, space delimited
+ *
+ * @param array $options
+ */
+	protected function _output($options = array()) {
 		if ($options) {
 			$this->out(implode($options, ' '));
 		}
