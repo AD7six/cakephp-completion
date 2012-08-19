@@ -71,9 +71,8 @@ Options:
 
 ## History
 
-23/01/2012 - v0.1 Initial release
-18/08/2012 - v0.2 Update for use with 2.2.x
-
+* 23/01/2012 - v0.1 Initial release
+* 18/08/2012 - v0.2 Update for use with 2.2.x
 
 ## License
 
