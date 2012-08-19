@@ -125,6 +125,7 @@ class CompletionShell extends CommandListShell {
 	 */
 	protected function _commands() {
 		$shellList = $this->_getShellList();
+		unset($shellList['Completion']);
 
 		$options = array();
 		foreach($shellList as $type => $commands) {
