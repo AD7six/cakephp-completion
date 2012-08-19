@@ -52,15 +52,14 @@ as you would any other, by editing your bootstrap.php file:
 Commands:
 
 	$ Console/cake <tab>
-	acl                    commandList            i18n                   testsuite
-	api                    completion.completion  schema                 upgrade
-	bake                   console                test
+	acl           bake          console       schema        test          upgrade
+	api           command_list  i18n          server        testsuite
 	$ Console/cake
 
 Subcommands:
 
 	$ Console/cake bake <tab>
-	controller  dbConfig    fixture     model       plugin      project     test        view
+	controller  db_config    fixture     model       plugin      project     test        view
 	$ Console/cake bake
 
 Options:
