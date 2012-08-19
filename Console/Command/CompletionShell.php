@@ -127,16 +127,15 @@ class CompletionShell extends CommandListShell {
 		$shellList = $this->_getShellList();
 
 		$options = array();
-
-		foreach($shellList as $shell => $type) {
+		foreach($shellList as $type => $commands) {
 			$prefix = '';
-			if (is_array($type)) {
-				$type = key($type);
-				if ($type !== 'CORE' && $type !== 'APP') {
-					$prefix = $type . '.';
-				}
+			if (!in_array($type, array('APP', 'CORE'))) {
+				$prefix = $type . '.';
 			}
-			$options[] = Inflector::variable($prefix . $shell);
+
+			foreach ($commands as $shell) {
+				$options[] = $prefix . $shell;
+			}
 		}
 
 		return $options;
@@ -155,20 +154,26 @@ class CompletionShell extends CommandListShell {
 			return array();
 		}
 
-		$return = array_map('Inflector::variable', $Shell->tasks);
+		$return = array();
+		$taskMap = TaskCollection::normalizeObjectArray((array) $Shell->tasks);
+		foreach ($taskMap as $task => $properties) {
+			$return[] = $task;
+		}
+
+		$return = array_map('Inflector::underscore', $return);
 
 		$ShellReflection = new ReflectionClass('AppShell');
 		$shellMethods = $ShellReflection->getMethods(ReflectionMethod::IS_PUBLIC);
 		$shellMethodNames = array('main', 'help');
 		foreach($shellMethods as $method) {
-			$shellMethodNames[] = Inflector::variable($method->getName());
+			$shellMethodNames[] = $method->getName();
 		}
 
 		$Reflection = new ReflectionClass($Shell);
 		$methods = $Reflection->getMethods(ReflectionMethod::IS_PUBLIC);
 		$methodNames = array();
 		foreach($methods as $method) {
-			$methodNames[] = Inflector::variable($method->getName());
+			$methodNames[] = $method->getName();
 		}
 
 		$return += array_diff($methodNames, $shellMethodNames);
@@ -181,9 +186,7 @@ class CompletionShell extends CommandListShell {
 	protected function _getShell($commandName) {
 		list($plugin, $name) = pluginSplit($commandName, true);
 
-		$underscored = Inflector::underscore($name);
-		$shellList = $this->_getShellList();
-		if (empty($shellList[$underscored])) {
+		if (!in_array($commandName, $this->_commands())) {
 			return false;
 		}
 		if ($plugin === 'CORE.' || $plugin === 'APP.') {
