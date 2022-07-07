@@ -1,4 +1,4 @@
-# CakePHP Completion
+# CakePHP Completion #ARCHIVED#
 
 A CakePHP plugin to enable (bash) completion for the CakePHP cli.
 
